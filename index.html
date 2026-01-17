@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinVeda | Premium Wealth Intelligence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                primary: 'var(--color-primary)',
+                secondary: 'var(--color-secondary)',
+                accent: 'var(--color-accent)',
+                bg: 'var(--color-bg)',
+                surface: 'var(--color-surface)',
+                text: 'var(--color-text)',
+                muted: 'var(--color-muted)',
+                border: 'var(--color-border)',
+              }
+            },
+            borderRadius: {
+              '4xl': '2rem',
+              '5xl': '3rem',
+            },
+            animation: {
+              'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'float': 'float 3s ease-in-out infinite',
+              'slide-up': 'slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-10px)' },
+              },
+              slideUp: {
+                '0%': { transform: 'translateY(20px)', opacity: '0' },
+                '100%': { transform: 'translateY(0)', opacity: '1' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap');
+
+      :root {
+        --color-primary: #0f172a;
+        --color-secondary: #64748b;
+        --color-accent: #3b82f6;
+        --color-bg: #f8fafc;
+        --color-surface: #ffffff;
+        --color-text: #0f172a;
+        --color-muted: #f1f5f9;
+        --color-border: #e2e8f0;
+      }
+
+      .theme-dark {
+        --color-primary: #2dd4bf;
+        --color-secondary: #94a3b8;
+        --color-accent: #0d9488;
+        --color-bg: #020617;
+        --color-surface: #0f172a;
+        --color-text: #f8fafc;
+        --color-muted: #1e293b;
+        --color-border: #334155;
+      }
+
+      .theme-midnight {
+        --color-primary: #a5b4fc;
+        --color-secondary: #94a3b8;
+        --color-accent: #6366f1;
+        --color-bg: #030712;
+        --color-surface: #0b0f1a;
+        --color-text: #f8fafc;
+        --color-muted: #1a1e2e;
+        --color-border: #262b3d;
+      }
+
+      .theme-emerald {
+        --color-primary: #10b981;
+        --color-secondary: #64748b;
+        --color-accent: #059669;
+        --color-bg: #f0fdf4;
+        --color-surface: #ffffff;
+        --color-text: #064e3b;
+        --color-muted: #dcfce7;
+        --color-border: #bbf7d0;
+      }
+
+      .theme-sunset {
+        --color-primary: #f43f5e;
+        --color-secondary: #64748b;
+        --color-accent: #e11d48;
+        --color-bg: #fff1f2;
+        --color-surface: #ffffff;
+        --color-text: #4c0519;
+        --color-muted: #ffe4e6;
+        --color-border: #fecdd3;
+      }
+
+      body {
+        background-color: var(--color-bg);
+        color: var(--color-text);
+        transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        letter-spacing: -0.01em;
+      }
+      
+      .glass-card {
+        background: rgba(var(--color-surface), 0.8);
+        backdrop-filter: blur(16px);
+        border: 1px solid var(--color-border);
+      }
+
+      .premium-shadow {
+        box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.05);
+      }
+
+      .bento-card {
+        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        border: 1px solid var(--color-border);
+        background: var(--color-surface);
+      }
+      
+      .bento-card:hover {
+        transform: translateY(-8px) scale(1.01);
+        box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.1);
+        border-color: var(--color-accent);
+      }
+
+      .font-mono {
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      .hide-scrollbar::-webkit-scrollbar { display: none; }
+      .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+      * {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      input, select, button {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "recharts": "https://esm.sh/recharts@^3.6.0",
+    "@google/genai": "https://esm.sh/@google/genai@^1.37.0"
+  }
+}
+</script>
+</head>
+<body class="min-h-screen antialiased selection:bg-brand-accent selection:text-white">
+    <div id="root"></div>
+</body>
+</html>
