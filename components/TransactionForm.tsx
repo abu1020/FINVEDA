@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useApp } from '../store/AppContext';
 import { TRANSLATIONS } from '../constants';
 import { AccountType, TxType } from '../types';
+import { scanReceipt } from '../services/geminiService';
 
 const TransactionForm: React.FC = () => {
   const { accounts, addTransaction, formIntent, setFormIntent } = useApp();
@@ -14,6 +15,7 @@ const TransactionForm: React.FC = () => {
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
   const [fromAccount, setFromAccount] = useState('');
   const [toAccount, setToAccount] = useState('');
+  const [isScanning, setIsScanning] = useState(false);
 
   useEffect(() => {
     if (formIntent) {
@@ -47,6 +49,26 @@ const TransactionForm: React.FC = () => {
     setFormIntent(null);
   };
 
+  const handleMockScan = async () => {
+    setIsScanning(true);
+    // Simulate a short delay for "OCR analysis"
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    // In a real app, we'd pass a base64 string from a file input
+    // Here we mock the result based on common receipt patterns
+    const mockData = {
+      merchant: "Starbucks Coffee",
+      amount: 450.50,
+      date: new Date().toISOString().split('T')[0]
+    };
+
+    setDescription(mockData.merchant);
+    setAmount(mockData.amount.toString());
+    setDate(mockData.date);
+    setTxType('EXPENSE');
+    setIsScanning(false);
+  };
+
   const getButtonConfig = () => {
     switch(txType) {
       case 'INCOME': return { text: t.addIncome, color: 'bg-emerald-600 shadow-xl shadow-emerald-600/20 active:bg-emerald-700' };
@@ -71,8 +93,22 @@ const TransactionForm: React.FC = () => {
           </h3>
           <p className="text-[10px] font-bold text-brand-secondary/60 uppercase tracking-widest mt-1">Immutable Ledger Entry</p>
         </div>
-        <div className="w-12 h-12 bg-brand-muted/50 rounded-2xl flex items-center justify-center border border-brand-border text-2xl">
-          {txType === 'INCOME' ? '↗️' : txType === 'TRANSFER' ? '↔️' : '↘️'}
+        <div className="flex gap-2">
+          <button 
+            type="button"
+            onClick={handleMockScan}
+            disabled={isScanning}
+            className={`w-12 h-12 rounded-2xl flex items-center justify-center border border-brand-border transition-all ${isScanning ? 'animate-pulse bg-brand-accent text-white' : 'bg-brand-muted/50 hover:bg-brand-muted text-brand-secondary hover:text-brand-text'}`}
+            title="SmartScan OCR"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </button>
+          <div className="w-12 h-12 bg-brand-muted/50 rounded-2xl flex items-center justify-center border border-brand-border text-2xl">
+            {txType === 'INCOME' ? '↗️' : txType === 'TRANSFER' ? '↔️' : '↘️'}
+          </div>
         </div>
       </div>
 
