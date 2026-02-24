@@ -1,10 +1,11 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { AppState, Account, Transaction, Theme, EntryType, AccountType, View, TransactionIntent, TxType } from '../types';
+import { AppState, Account, Transaction, Theme, EntryType, AccountType, View, TransactionIntent, TxType, Language } from '../types';
 import { INITIAL_ACCOUNTS } from '../constants';
 
 interface AppContextType extends AppState {
   setTheme: (t: Theme) => void;
+  setLanguage: (l: Language) => void;
   setView: (v: View) => void;
   setFormIntent: (intent: TransactionIntent | null) => void;
   addTransaction: (description: string, date: string, amount: number, fromAccountId: string, toAccountId: string) => void;
@@ -29,6 +30,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     (localStorage.getItem('finveda_theme') as Theme) || 'light'
   );
 
+  const [language, setLanguage] = useState<Language>(() => 
+    (localStorage.getItem('finveda_language') as Language) || 'en'
+  );
+
   const [currentView, setCurrentView] = useState<View>('dashboard');
   const [formIntent, setFormIntent] = useState<TransactionIntent | null>(null);
 
@@ -36,7 +41,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     localStorage.setItem('finveda_accounts', JSON.stringify(accounts));
     localStorage.setItem('finveda_transactions', JSON.stringify(transactions));
     localStorage.setItem('finveda_theme', theme);
-  }, [accounts, transactions, theme]);
+    localStorage.setItem('finveda_language', language);
+  }, [accounts, transactions, theme, language]);
 
   const addAccount = useCallback((name: string, type: AccountType, emoji: string) => {
     const newAcc: Account = {
@@ -130,9 +136,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       accounts, 
       transactions, 
       theme, 
+      language,
       currentView,
       formIntent,
       setTheme, 
+      setLanguage,
       setView: setCurrentView,
       setFormIntent,
       addTransaction,

@@ -1,6 +1,7 @@
 
 export type Theme = 'light' | 'dark' | 'midnight' | 'emerald' | 'sunset';
 export type View = 'dashboard' | 'transactions' | 'banking';
+export type Language = 'en' | 'hi';
 export type TxType = 'EXPENSE' | 'INCOME' | 'TRANSFER';
 
 export enum AccountType {
